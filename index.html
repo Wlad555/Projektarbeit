@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Balkendiagramm</title>
+  </head>
+  <style>
+    body {
+      background-image: url(bilder/background.jpg);
+      background-position: center;
+      background-attachment: fixed;
+      background-size: 100%;
+      font-family: Helvetica Neuen, Helvetica, Arial;
+    }
+    section {
+      margin: auto;
+      max-width: 1000px;
+      text-align: center;
+      display: grid;
+      flex-direction: row;
+      justify-content: space-evenly;
+      grid-template-columns: repeat(3, 1fr);
+      grid-gap: 1em;
+    }
+
+    .balken,
+    .werte {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-evenly;
+    }
+
+    .diagramm {
+      display: block;
+      position: relative;
+      margin: auto;
+      width: 200px;
+      height: 250px;
+      transition: all 300ms;
+      background: rgb(255, 255, 255);
+      border: #006fff 2px solid;
+    }
+
+    .diagramm:hover {
+      transform: scale(1.1);
+      border: #006fff 0.2em solid;
+    }
+    .ergebnis {
+      margin-top: 20px;
+      max-width: 50px;
+      max-height: 20px;
+      background-color: #006fff;
+      width: 50px;
+      height: 20px;
+    }
+    .balken {
+      height: 160px;
+      display: flex;
+      align-items: flex-end;
+    }
+    .auswertung {
+      margin-top: 10px;
+      background-color: #006fff;
+      max-width: 30px;
+      max-height: 160px;
+      width: 30px;
+    }
+    .strich {
+      margin: 0px 10px 0px 10px;
+      height: 2px;
+      background-color: black;
+    }
+    .monat {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+    }
+  </style>
+  <body>
+    <header>
+      <h1 class="head" style="text-align: center; color: black">
+        Verbrauch in Balkendiagramm
+      </h1>
+    </header>
+    <section class="box">
+      <div class="diagramm">
+        <div class="werte">
+          <div class="ergebnis"></div>
+          <div class="ergebnis"></div>
+        </div>
+        <div class="balken">
+          <div class="auswertung" style="height: 40px"></div>
+          <div class="auswertung" style="height: 120px"></div>
+        </div>
+        <div class="strich"></div>
+        <div class="monat"><p>Monat</p></div>
+      </div>
+      <div class="diagramm">
+        <div class="werte">
+          <div class="ergebnis"></div>
+          <div class="ergebnis"></div>
+        </div>
+        <div class="balken">
+          <div class="auswertung"></div>
+          <div class="auswertung"></div>
+        </div>
+        <div class="strich"></div>
+        <div class="monat"><p>Monat</p></div>
+      </div>
+      <div class="diagramm">
+        <div class="werte">
+          <div class="ergebnis"></div>
+          <div class="ergebnis"></div>
+        </div>
+        <div class="balken">
+          <div class="auswertung"></div>
+          <div class="auswertung"></div>
+        </div>
+        <div class="strich"></div>
+        <div class="monat"><p>Monat</p></div>
+      </div>
+      <div class="diagramm">
+        <div class="werte">
+          <div class="ergebnis"></div>
+          <div class="ergebnis"></div>
+        </div>
+        <div class="balken">
+          <div class="auswertung"></div>
+          <div class="auswertung"></div>
+        </div>
+        <div class="strich"></div>
+        <div class="monat"><p>Monat</p></div>
+      </div>
+    </section>
+  </body>
+</html>
