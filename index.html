@@ -4,134 +4,257 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Balkendiagramm</title>
+    <title>Monatsverbrauch von Gas & Strom</title>
   </head>
   <style>
+    html {
+      min-height: fit-content;
+      height: 100%;
+      font-family: Helvetica Neuen, Helvetica, Arial;
+    }
+
     body {
-      background-image: url(bilder/background.jpg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100%;
+      height: fit-content;
+      width: 100%;
+      margin: 0;
+      background-image: url("https://images.pexels.com/photos/2860804/pexels-photo-2860804.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1");
       background-position: center;
       background-attachment: fixed;
       background-size: 100%;
-      font-family: Helvetica Neuen, Helvetica, Arial;
     }
+
+    .background-blur {
+      position: absolute;
+      z-index: -1;
+      width: 100%;
+      height: 100%;
+      backdrop-filter: blur(5px);
+    }
+
     section {
-      margin: auto;
-      max-width: 1000px;
-      text-align: center;
+      width: fit-content;
+      height: fit-content;
+      padding: 25px;
+      display: block;
+      align-items: center;
+      justify-content: center;
+      margin: 25px 0 25px 0;
+      background-color: rgb(255, 255, 255, 0.5);
+      backdrop-filter: blur(15px);
+      border-radius: 10px;
+      box-shadow: 0 0 80px rgba(0, 0, 0, 0.5);
+    }
+
+    h1 {
+      font-size: 2rem;
+      font-weight: 800;
+      margin: 0 0 25px 0;
+    }
+
+    .grid-container {
       display: grid;
       flex-direction: row;
       justify-content: space-evenly;
-      grid-template-columns: repeat(3, 1fr);
-      grid-gap: 1em;
+      grid-template-columns: repeat(4, 1fr);
+      grid-gap: 65px;
+      width: fit-content;
     }
 
-    .balken,
-    .werte {
+    .karte {
+      display: block;
+      position: relative;
+      width: 250px;
+      height: 300px;
+      transition: all 1s ease-out;
+      border-radius: 10px;
+      background: rgb(255, 255, 255, 0.3);
+      box-shadow: 0 0 70px rgba(0, 0, 0, 0.4);
+    }
+
+    .karte:hover {
+      transform: scale(1.1);
+      border: #006fff 0.2em solid;
+    }
+
+    .balken-diagramm,
+    .balken-wert {
       display: flex;
       flex-direction: row;
       justify-content: space-evenly;
     }
 
-    .diagramm {
-      display: block;
-      position: relative;
-      margin: auto;
-      width: 200px;
-      height: 250px;
-      transition: all 300ms;
-      background: rgb(255, 255, 255);
-      border: #006fff 2px solid;
-    }
-
-    .diagramm:hover {
-      transform: scale(1.1);
-      border: #006fff 0.2em solid;
-    }
-    .ergebnis {
-      margin-top: 20px;
-      max-width: 50px;
-      max-height: 20px;
-      background-color: #006fff;
-      width: 50px;
-      height: 20px;
-    }
-    .balken {
-      height: 160px;
+    .balken-diagramm {
+      height: fit-content;
       display: flex;
       align-items: flex-end;
+      position: absolute;
+      bottom: 62px;
+      width: 100%;
     }
-    .auswertung {
+
+    .balken-wert {
+      width: 50px;
+      height: 20px;
+      text-align: center;
+      font-size: 1.5em;
+      font-weight: 600;
+    }
+
+    .einzelner-balken {
       margin-top: 10px;
-      background-color: #006fff;
-      max-width: 30px;
-      max-height: 160px;
-      width: 30px;
+      max-height: 200px;
+      width: 50px;
+      background-color: yellow;
     }
+
+    .einzelner-balken.gas {
+      background-color: #006fff;
+    }
+
+    .einzelner-balken.strom {
+      background-color: red;
+    }
+
     .strich {
-      margin: 0px 10px 0px 10px;
-      height: 2px;
+      margin-left: 10%;
+      height: 3px;
+      border-radius: 1px;
+      position: absolute;
+      bottom: 60px;
+      width: 80%;
       background-color: black;
     }
+
     .monat {
       position: absolute;
       bottom: 0;
       width: 100%;
+      text-align: center;
+      font-size: 1.5em;
+      font-weight: 800;
+    }
+    .legende {
+      display: flex;
+      font-size: 1.1em;
+      font-weight: 550;
+      justify-content: space-evenly;
+      margin-left: auto;
+      margin-right: auto;
+      margin-top: 40px;
+      width: 40%;
+    }
+    .absatz {
+      align-items: center;
+      display: flex;
+      margin: auto;
+    }
+    .g-kreis,
+    .s-kreis {
+      border-radius: 50%;
+      height: 20px;
+      margin-right: 5px;
+      width: 20px;
     }
   </style>
+
   <body>
-    <header>
-      <h1 class="head" style="text-align: center; color: black">
+    <div class="background-blur"></div>
+    <section>
+      <h1 style="text-align: center; color: black">
         Verbrauch in Balkendiagramm
       </h1>
-    </header>
-    <section class="box">
-      <div class="diagramm">
-        <div class="werte">
-          <div class="ergebnis"></div>
-          <div class="ergebnis"></div>
+      <div class="grid-container">
+        <div class="karte">
+          <div class="balken-diagramm">
+            <div>
+              <div class="balken-wert">26,2</div>
+              <div class="einzelner-balken gas" style="height: 40px"></div>
+            </div>
+            <div>
+              <div class="balken-wert">40</div>
+              <div class="einzelner-balken strom" style="height: 200px"></div>
+            </div>
+          </div>
+          <div class="strich"></div>
+          <div class="monat">
+            <p>Monat</p>
+          </div>
         </div>
-        <div class="balken">
-          <div class="auswertung" style="height: 40px"></div>
-          <div class="auswertung" style="height: 120px"></div>
+
+        <div class="karte">
+          <div class="werte">
+            <div class="balken-wert"></div>
+            <div class="balken-wert"></div>
+          </div>
+          <div class="balken-diagramm">
+            <div class="einzelner-balken" style="height: 40px"></div>
+            <div class="einzelner-balken" style="height: 200px"></div>
+          </div>
+          <div class="strich"></div>
+          <div class="monat">
+            <p>Monat</p>
+          </div>
         </div>
-        <div class="strich"></div>
-        <div class="monat"><p>Monat</p></div>
+
+        <div class="karte">
+          <div class="werte">
+            <div class="balken-wert"></div>
+            <div class="balken-wert"></div>
+          </div>
+          <div class="balken-diagramm">
+            <div class="einzelner-balken" style="height: 40px"></div>
+            <div class="einzelner-balken" style="height: 120px"></div>
+          </div>
+          <div class="strich"></div>
+          <div class="monat">
+            <p>Monat</p>
+          </div>
+        </div>
+
+        <div class="karte">
+          <div class="werte">
+            <div class="balken-wert"></div>
+            <div class="balken-wert"></div>
+          </div>
+          <div class="balken-diagramm">
+            <div class="einzelner-balken" style="height: 40px"></div>
+            <div class="einzelner-balken" style="height: 120px"></div>
+          </div>
+          <div class="strich"></div>
+          <div class="monat">
+            <p>Monat</p>
+          </div>
+        </div>
+
+        <div class="karte">
+          <div class="werte">
+            <div class="balken-wert"></div>
+            <div class="balken-wert"></div>
+          </div>
+          <div class="balken-diagramm">
+            <div class="einzelner-balken" style="height: 40px"></div>
+            <div class="einzelner-balken" style="height: 120px"></div>
+          </div>
+          <div class="strich"></div>
+          <div class="monat">
+            <p>Monat</p>
+          </div>
+        </div>
       </div>
-      <div class="diagramm">
-        <div class="werte">
-          <div class="ergebnis"></div>
-          <div class="ergebnis"></div>
+
+      <div class="legende">
+        <div class="absatz">
+          <div class="g-kreis" style="background-color: blue"></div>
+          Gas in CBM
         </div>
-        <div class="balken">
-          <div class="auswertung"></div>
-          <div class="auswertung"></div>
+        <div class="absatz">
+          <div class="s-kreis" style="background-color: red"></div>
+          Strom in KwH
         </div>
-        <div class="strich"></div>
-        <div class="monat"><p>Monat</p></div>
-      </div>
-      <div class="diagramm">
-        <div class="werte">
-          <div class="ergebnis"></div>
-          <div class="ergebnis"></div>
-        </div>
-        <div class="balken">
-          <div class="auswertung"></div>
-          <div class="auswertung"></div>
-        </div>
-        <div class="strich"></div>
-        <div class="monat"><p>Monat</p></div>
-      </div>
-      <div class="diagramm">
-        <div class="werte">
-          <div class="ergebnis"></div>
-          <div class="ergebnis"></div>
-        </div>
-        <div class="balken">
-          <div class="auswertung"></div>
-          <div class="auswertung"></div>
-        </div>
-        <div class="strich"></div>
-        <div class="monat"><p>Monat</p></div>
       </div>
     </section>
   </body>
